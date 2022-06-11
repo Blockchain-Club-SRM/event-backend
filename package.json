@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "pm2 start ecosystem.config.json --no-daemon",
-    "dev": "NODE_ENV=production nodemon src/server.js"
+    "dev": "NODE_ENV=development nodemon src/server.js"
   },
   "keywords": [],
   "author": "Deepak Kumar <deepak.2002.02.16@gmail.com>",
