@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
+const jwt = require('jsonwebtoken');
 const { toJSON, paginate } = require('./plugins');
-const { tokenService } = require('../services');
+const config = require('../config/config');
 
 const userSchema = mongoose.Schema(
   {
@@ -31,7 +32,6 @@ const userSchema = mongoose.Schema(
     },
     qrCode: {
       type: String,
-      required: true,
       unique: true,
     },
     isPresent: {
@@ -86,7 +86,16 @@ userSchema.statics.isRegisterTaken = async function (registerNumber, excludeUser
 userSchema.pre('save', async function (next) {
   if (this.isNew) {
     const user = this;
-    user.qrCode = await tokenService.generateQrCode(user);
+    const payload = {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      phoneNumber: user.phoneNumber,
+      registerNumber: user.registerNumber,
+      registeredTime: user.registeredTime,
+      type: 'qrCode',
+    };
+    user.qrCode = await jwt.sign(payload, config.jwt.qrCodeSecret);
   }
   next();
 });

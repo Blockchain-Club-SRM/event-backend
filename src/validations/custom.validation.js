@@ -23,7 +23,7 @@ exports.phoneNumber = (value, helpers) => {
 };
 
 exports.registerNumber = (value, helpers) => {
-  if (!value.match('/([a-z0-9A-Z]{15})/g')) {
+  if (!value.match('[a-z0-9A-Z]{15}')) {
     return helpers.message('Please provide a valid register number');
   }
   return value;

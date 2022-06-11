@@ -36,18 +36,6 @@ const verifyToken = async (token, type) => {
   }
   return tokenDoc;
 };
-const generateQrCode = (user, type = tokenTypes.QR_CODE, secret = config.jwt.qrSecret) => {
-  const payload = {
-    id: user.id,
-    name: user.name,
-    email: user.email,
-    phoneNumber: user.phoneNumber,
-    registerNumber: user.registerNumber,
-    registeredTime: user.registeredTime,
-    type,
-  };
-  return jwt.sign(payload, secret);
-};
 
 const verifyQrCode = async (code) => {
   const payload = jwt.verify(code, config.jwt.qrSecret);
@@ -110,7 +98,6 @@ module.exports = {
   verifyToken,
   verifyQrCode,
   generateAuthTokens,
-  generateQrCode,
   generateResetPasswordToken,
   generateVerifyEmailToken,
 };
