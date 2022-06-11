@@ -52,13 +52,6 @@ if (config.env === 'production') {
 
 // v1 api routes
 app.use('/', routes);
-app.get('/', async (_, res) => {
-  try {
-    res.send(200).json({ message: 'Status Online' });
-  } catch (e) {
-    res.status(500).send();
-  }
-});
 
 // send back a 404 error for any unknown api request
 app.use((req, res, next) => {
