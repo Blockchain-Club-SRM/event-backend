@@ -4,6 +4,7 @@ const ApiError = require('../utils/ApiError');
 
 const getUserById = async (id) => User.findById(id);
 const getUserByRegisterNumber = async (registerNumber) => User.findOne({ registerNumber });
+const getUserByQrCode = async (qrCode) => User.findOne({ qrCode });
 const getUserByEmail = async (email) => User.findOne({ email });
 const getUserByPhoneNumber = async (phoneNumber) => User.findOne({ phoneNumber });
 
@@ -60,6 +61,7 @@ module.exports = {
   getUserByEmail,
   getUserByPhoneNumber,
   getUserByRegisterNumber,
+  getUserByQrCode,
   updateUserById,
   deleteUserById,
 };

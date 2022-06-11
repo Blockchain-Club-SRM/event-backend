@@ -30,6 +30,11 @@ exports.getUser = {
     userId: Joi.string().custom(objectId),
   }),
 };
+exports.getUserByQrCode = {
+  params: Joi.object().keys({
+    code: Joi.string(),
+  }),
+};
 
 exports.updateUser = {
   params: Joi.object().keys({
