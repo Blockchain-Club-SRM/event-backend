@@ -41,7 +41,7 @@ const verifyQrCode = async (code) => {
   const payload = jwt.verify(code, config.jwt.qrSecret);
   const tokenDoc = await User.findOne({ qrCode: code, _id: payload.id });
   if (!tokenDoc) {
-    throw new Error('Code not found');
+    throw new Error('User not found');
   }
   return tokenDoc;
 };
