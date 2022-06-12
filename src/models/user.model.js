@@ -20,7 +20,6 @@ const userSchema = mongoose.Schema(
     },
     phoneNumber: {
       type: String,
-      required: [true, 'Phone Number Required'],
       trim: true,
       lowercase: true,
     },

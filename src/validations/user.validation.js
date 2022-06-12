@@ -5,7 +5,7 @@ exports.createUser = {
   body: Joi.object().keys({
     name: Joi.string().required(),
     email: Joi.string().required().email(),
-    phoneNumber: Joi.string().required().custom(phoneNumber),
+    phoneNumber: Joi.string().custom(phoneNumber),
     registerNumber: Joi.string().required().custom(registerNumber),
   }),
 };
