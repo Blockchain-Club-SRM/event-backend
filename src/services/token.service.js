@@ -38,7 +38,7 @@ const verifyToken = async (token, type) => {
 };
 
 const verifyQrCode = async (code) => {
-  const payload = jwt.verify(code, config.jwt.qrSecret);
+  const payload = jwt.verify(code, config.jwt.qrCodeSecret);
   const tokenDoc = await User.findOne({ qrCode: code, _id: payload.id });
   if (!tokenDoc) {
     throw new Error('User not found');
