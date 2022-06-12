@@ -35,6 +35,11 @@ const userSchema = mongoose.Schema(
     },
     isPresent: {
       type: Boolean,
+      default: false,
+    },
+    hasEaten: {
+      type: Boolean,
+      default: false,
     },
     markedBy: {
       type: mongoose.SchemaTypes.ObjectId,
