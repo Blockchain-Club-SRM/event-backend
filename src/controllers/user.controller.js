@@ -2,9 +2,15 @@ const httpStatus = require('http-status');
 const pick = require('../utils/pick');
 const ApiError = require('../utils/ApiError');
 const catchAsync = require('../utils/catchAsync');
-const { userService, tokenService } = require('../services');
+const { userService, tokenService, emailService } = require('../services');
 
 const createUser = catchAsync(async (req, res) => {
+  const user = await userService.createUser(req.body);
+  await emailService.sendQrCodeEmail(user.email, user.name, user.qrCode);
+  res.status(httpStatus.CREATED).send(user);
+});
+const createUserOnSpot = catchAsync(async (req, res) => {
+  req.body.isPresent = true;
   const user = await userService.createUser(req.body);
   res.status(httpStatus.CREATED).send(user);
 });
@@ -51,5 +57,6 @@ module.exports = {
   getUser,
   updateUser,
   deleteUser,
+  createUserOnSpot,
   getUserByQrCode,
 };
