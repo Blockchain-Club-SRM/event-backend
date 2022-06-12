@@ -21,24 +21,23 @@ const handleValidationErrorDB = (err) => {
   const message = `${errors.join('. ')}`;
   return message;
 };
-
-exports.errorConverter = (err, req, res, next) => {
-  let error = { ...err };
-  error.message = err.message;
+const errorConverter = (err, req, res, next) => {
+  let error = err;
   if (error.name === 'CastError') error.message = handleCastErrorDB(error);
   if (error.code === 11000) error.message = handleDuplicateFieldsDB(error);
   if (error.name === 'ValidationError') error.message = handleValidationErrorDB(error);
+
   if (!(error instanceof ApiError)) {
     const statusCode =
       error.statusCode || error instanceof mongoose.Error ? httpStatus.BAD_REQUEST : httpStatus.INTERNAL_SERVER_ERROR;
-    // eslint-disable-next-line security/detect-object-injection
     const message = error.message || httpStatus[statusCode];
     error = new ApiError(statusCode, message, false, err.stack);
   }
   next(error);
 };
 
-exports.errorHandler = (err, req, res, next) => {
+// eslint-disable-next-line no-unused-vars
+const errorHandler = (err, req, res, next) => {
   let { statusCode, message } = err;
   if (config.env === 'production' && !err.isOperational) {
     statusCode = httpStatus.INTERNAL_SERVER_ERROR;
@@ -51,7 +50,6 @@ exports.errorHandler = (err, req, res, next) => {
     code: statusCode,
     message,
     status: err.status,
-    ...(config.env === 'development' && { error: err }),
     ...(config.env === 'development' && { stack: err.stack }),
   };
 
@@ -60,4 +58,9 @@ exports.errorHandler = (err, req, res, next) => {
   }
 
   res.status(statusCode).send(response);
+};
+
+module.exports = {
+  errorConverter,
+  errorHandler,
 };
