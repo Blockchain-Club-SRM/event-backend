@@ -47,6 +47,7 @@ exports.updateUser = {
       phoneNumber: Joi.string().custom(phoneNumber),
       registerNumber: Joi.string().custom(registerNumber),
       isPresent: Joi.boolean(),
+      hasEaten: Joi.boolean(),
     })
     .min(1),
 };
