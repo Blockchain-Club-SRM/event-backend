@@ -6,7 +6,7 @@ const { userService, tokenService, emailService } = require('../services');
 
 const createUser = catchAsync(async (req, res) => {
   const user = await userService.createUser(req.body);
-  // await emailService.sendQrCodeEmail(user.email, user.name, user.qrCode);
+  await emailService.sendQrCodeEmail(user.email, user.name, user.qrCode);
   res.status(httpStatus.CREATED).send(user);
 });
 const createUserOnSpot = catchAsync(async (req, res) => {
