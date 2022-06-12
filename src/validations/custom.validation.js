@@ -16,14 +16,14 @@ exports.password = (value, helpers) => {
 };
 
 exports.phoneNumber = (value, helpers) => {
-  if (!value.match('[0-9]{10}')) {
+  if (!value.match('^[0-9]*$')) {
     return helpers.message('Please provide a valid phone number');
   }
   return value;
 };
 
 exports.registerNumber = (value, helpers) => {
-  if (!value.match('[a-z0-9A-Z]{15}')) {
+  if (!value.match('^[a-z0-9A-Z]{15}$')) {
     return helpers.message('Please provide a valid register number');
   }
   return value;
