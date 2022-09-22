@@ -32,7 +32,7 @@ exports.getUser = {
 };
 exports.getUserByQrCode = {
   params: Joi.object().keys({
-    code: Joi.string(),
+    code: Joi.string().required(),
   }),
 };
 

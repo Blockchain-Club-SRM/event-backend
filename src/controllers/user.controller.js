@@ -31,9 +31,10 @@ const getUser = catchAsync(async (req, res) => {
 });
 
 const getUserByQrCode = catchAsync(async (req, res) => {
-  const user = await tokenService.verifyQrCode(req.params.code);
+  // const user = await tokenService.verifyQrCode(req.params.code);
+  const user = await userService.getUserByRegisterNumber(req.params.code);
   if (!user) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'User not found or Unverified QR Code');
+    throw new ApiError(httpStatus.NOT_FOUND, 'User not found !');
   }
   res.send(user);
 });
