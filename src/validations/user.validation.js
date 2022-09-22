@@ -6,7 +6,7 @@ exports.createUser = {
     name: Joi.string().required(),
     email: Joi.string().required().email(),
     phoneNumber: Joi.string().custom(phoneNumber),
-    registerNumber: Joi.string().required().custom(registerNumber),
+    registerNumber: Joi.string().required(),
   }),
 };
 
@@ -38,14 +38,14 @@ exports.getUserByQrCode = {
 
 exports.updateUser = {
   params: Joi.object().keys({
-    userId: Joi.required().custom(objectId),
+    userId: Joi.string().required(),
   }),
   body: Joi.object()
     .keys({
       name: Joi.string(),
       email: Joi.string().email(),
       phoneNumber: Joi.string().custom(phoneNumber),
-      registerNumber: Joi.string().custom(registerNumber),
+      registerNumber: Joi.string(),
       isPresent: Joi.boolean(),
       hasEaten: Joi.boolean(),
     })

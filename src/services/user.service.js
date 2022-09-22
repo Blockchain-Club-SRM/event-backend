@@ -24,7 +24,7 @@ const queryUsers = async (filter, options) => {
 };
 
 const updateUserById = async (userId, updateBody) => {
-  const user = await getUserById(userId);
+  const user = await getUserByRegisterNumber(userId);
   if (!user) {
     throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
   }
