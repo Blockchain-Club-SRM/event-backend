@@ -94,7 +94,6 @@ userSchema.pre('save', async function (next) {
       id: user.id,
       name: user.name,
       email: user.email,
-      phoneNumber: user.phoneNumber,
       registerNumber: user.registerNumber,
       registeredTime: user.registeredTime,
       type: 'qrCode',

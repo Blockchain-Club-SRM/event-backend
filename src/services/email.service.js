@@ -41,7 +41,7 @@ If you did not create an account, then ignore this email.`;
 };
 
 exports.sendQrCodeEmail = async (to, name, code) => {
-  const subject = 'QR Code for Attendance';
+  const subject = 'Thank you for registering for De-Code';
   const text = `Dear ${name},
 Your QR Code for Attendance`;
   const html = pug.renderFile(`${__dirname}/../views/email/qrCode.pug`, {
