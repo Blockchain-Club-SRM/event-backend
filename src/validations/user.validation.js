@@ -17,6 +17,23 @@ exports.getUsers = {
     phoneNumber: Joi.string().custom(phoneNumber),
     registerNumber: Joi.string().custom(registerNumber),
     isPresent: Joi.boolean(),
+    hasEaten: Joi.boolean(),
+    qrCode: Joi.string(),
+    markedBy: Joi.string(),
+    sortBy: Joi.string(),
+    limit: Joi.number().integer(),
+    page: Joi.number().integer(),
+  }),
+};
+
+exports.sendMail = {
+  query: Joi.object().keys({
+    name: Joi.string(),
+    email: Joi.string().email(),
+    phoneNumber: Joi.string().custom(phoneNumber),
+    registerNumber: Joi.string().custom(registerNumber),
+    isPresent: Joi.boolean(),
+    hasEaten: Joi.boolean(),
     qrCode: Joi.string(),
     markedBy: Joi.string(),
     sortBy: Joi.string(),

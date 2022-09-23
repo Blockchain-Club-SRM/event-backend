@@ -52,3 +52,15 @@ Your QR Code for Attendance`;
 
   await sendEmail(to, subject, html, text);
 };
+
+exports.sendMiscMail = async (to, name) => {
+  const subject = "Regardin E-Certificates and OD's for DE-CODE";
+  const text = `Dear ${name},
+  Details on E-Certificates and OD's for DE-CODE`;
+  const html = pug.renderFile(`${__dirname}/../views/email/miscMail.pug`, {
+    name,
+    subject,
+  });
+
+  await sendEmail(to, subject, html, text);
+};

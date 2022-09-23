@@ -16,10 +16,38 @@ const createUserOnSpot = catchAsync(async (req, res) => {
 });
 
 const getUsers = catchAsync(async (req, res) => {
-  const filter = pick(req.query, ['name', 'email', 'registerNumber', 'phoneNumber', 'isPresent', 'qrCode', 'markedBy']);
+  const filter = pick(req.query, [
+    'name',
+    'email',
+    'registerNumber',
+    'phoneNumber',
+    'hasEaten',
+    'isPresent',
+    'qrCode',
+    'markedBy',
+  ]);
   const options = pick(req.query, ['sortBy', 'limit', 'page']);
   const result = await userService.queryUsers(filter, options);
   res.send(result);
+});
+
+const sendMail = catchAsync(async (req, res) => {
+  const filter = pick(req.query, [
+    'name',
+    'email',
+    'registerNumber',
+    'phoneNumber',
+    'isPresent',
+    'hasEaten',
+    'qrCode',
+    'markedBy',
+  ]);
+  const options = pick(req.query, ['sortBy', 'limit', 'page']);
+  const result = await userService.queryUsers(filter, options);
+  await result.results.map(async (user) => {
+    await emailService.sendMiscMail(user.email, user.name);
+  });
+  res.status(200).send(result);
 });
 
 const getUser = catchAsync(async (req, res) => {
@@ -56,6 +84,7 @@ module.exports = {
   createUser,
   getUsers,
   getUser,
+  sendMail,
   updateUser,
   deleteUser,
   createUserOnSpot,

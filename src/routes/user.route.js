@@ -10,6 +10,7 @@ router
   .route('/')
   .post(validate(userValidation.createUser), userController.createUser)
   .get(validate(userValidation.getUsers), userController.getUsers);
+router.route('/mail').post(validate(userValidation.sendMail), userController.sendMail);
 router.route('/spot').post(validate(userValidation.createUser), userController.createUserOnSpot);
 router.route('/qr/:code').get(validate(userValidation.getUserByQrCode), userController.getUserByQrCode);
 

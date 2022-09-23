@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 process.on('uncaughtException', (error) => {
   console.log('🔴 UNCAUGHT EXCEPTION!');
-  console.info(error.name, error.message);
+  console.info(error);
   console.info('⚠️ Server Closed!');
   process.exit(1);
 });
@@ -22,7 +22,7 @@ mongoose.connect(config.mongoose.url, config.mongoose.options).then(() => {
 
 process.on('unhandledRejection', (error) => {
   logger.info('🔴 UNHANDLED REJECTION!');
-  logger.info(error.name, error.message);
+  logger.info(error);
   if (server) {
     server.close(() => {
       logger.info('⚠️ Server Closed!');
