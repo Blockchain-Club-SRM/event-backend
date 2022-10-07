@@ -11,6 +11,10 @@ if (config.env !== 'test') {
     .catch(() => logger.warn('🔴 Unable to connect to email server'));
 }
 
+// const sendEmail = async (to, subject, html, text, attachments) => {
+//   const msg = { from: config.email.from, to, subject, html, text, attachments };
+//   await transport.sendMail(msg);
+// };
 const sendEmail = async (to, subject, html, text) => {
   const msg = { from: config.email.from, to, subject, html, text };
   await transport.sendMail(msg);
@@ -58,6 +62,26 @@ exports.sendMiscMail = async (to, name) => {
   const text = `Dear ${name},
   Details on E-Certificates and OD's for DE-CODE`;
   const html = pug.renderFile(`${__dirname}/../views/email/miscMail.pug`, {
+    name,
+    subject,
+  });
+
+  await sendEmail(to, subject, html, text);
+};
+
+exports.sendCertificateMail = async (to, name) => {
+  const subject = 'Regarding Second round of Recruitments';
+  // const attachments = [
+  //   {
+  //     filename: `${to}.jpg`,
+  //     path: `/run/media/panic0/Harddrive/blockchain_club_Srm/Print-Names-in-Certificate-using-Python/out/${to}.jpg`,
+  //     contentType: 'image/jpg',
+  //   },
+  // ];
+  const text = `Dear ${name},
+  Regarding Second round of Recruitments
+  Book Your Slot Here - https://calendly.com/blockchainclubsrm/recruitments-technical `;
+  const html = pug.renderFile(`${__dirname}/../views/email/congrats.pug`, {
     name,
     subject,
   });

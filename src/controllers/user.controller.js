@@ -49,6 +49,10 @@ const sendMail = catchAsync(async (req, res) => {
   });
   res.status(200).send(result);
 });
+const sendCertificateMail = catchAsync(async (req, res) => {
+  await emailService.sendCertificateMail(req.body.email, req.body.name);
+  res.status(httpStatus.OK).send();
+});
 
 const getUser = catchAsync(async (req, res) => {
   const user = await userService.getUserById(req.params.userId);
@@ -89,4 +93,5 @@ module.exports = {
   deleteUser,
   createUserOnSpot,
   getUserByQrCode,
+  sendCertificateMail,
 };

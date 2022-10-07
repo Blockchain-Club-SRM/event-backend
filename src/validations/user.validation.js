@@ -41,7 +41,12 @@ exports.sendMail = {
     page: Joi.number().integer(),
   }),
 };
-
+exports.sendCertificateMail = {
+  body: Joi.object().keys({
+    name: Joi.string().required(),
+    email: Joi.string().required().email(),
+  }),
+};
 exports.getUser = {
   params: Joi.object().keys({
     userId: Joi.string().custom(objectId),
